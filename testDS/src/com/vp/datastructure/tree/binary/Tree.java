@@ -2,7 +2,11 @@ package com.vp.datastructure.tree.binary;
 
 public class Tree {
 	private TreeNode root;
-
+	private Stack stack;
+	
+	public Tree(){
+		stack =Stack.getInstance();
+	}
 	public TreeNode initTree(int[] data) {
 		if (root != null) {
 			System.out.println("tree Alredy initlized");
@@ -78,7 +82,7 @@ public class Tree {
 
 	public void traversPreOrder() {
 		TreeNode currNode = root;
-		Stack stack = Stack.getInstance();
+		//Stack stack = Stack.getInstance();
 		System.out.println("-------------------------------------------");
 		System.out.println("-------------Pre Order Traversal-----------");
 		System.out.println("-------------------------------------------");
@@ -98,7 +102,7 @@ public class Tree {
 
 	public void traversInOrder() {
 		TreeNode currNode = root;
-		Stack stack = Stack.getInstance();
+		//Stack stack = Stack.getInstance();
 		pushToStack(currNode);
 		currNode = stack.pop();
 		System.out.println("-------------------------------------------");
@@ -131,7 +135,8 @@ public class Tree {
 
 	private void pushToStack(TreeNode node) {
 		while (node != null) {
-			Stack.getInstance().push(node);
+			stack.push(node);
+			//Stack.getInstance().push(node);
 			node = node.getLeft();
 		}
 	}
@@ -158,12 +163,12 @@ public class Tree {
 		while (currNode != null) {
 			count++;
 			if (currNode.getRight() != null) {
-				Stack.getInstance().push(currNode.getRight());
+				stack.push(currNode.getRight());
 			}
 			if (currNode.getLeft() != null) {
 				currNode = currNode.getLeft();
 			} else {
-				currNode = Stack.getInstance().pop();
+				currNode = stack.pop();
 			}
 		}
 		return count;
@@ -273,7 +278,7 @@ public class Tree {
 
 	private TreeNode getInOrderSuccessor(TreeNode node) {
 		pushToStack(node);
-		return Stack.getInstance().pop();
+		return stack.pop();
 	}
 
 	public TreeNode getParent(TreeNode root, int item) {

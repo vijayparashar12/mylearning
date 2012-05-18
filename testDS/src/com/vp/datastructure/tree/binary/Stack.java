@@ -1,11 +1,10 @@
 package com.vp.datastructure.tree.binary;
 
 import java.util.ArrayList;
-
-//this is a singleton stack
+import java.util.List;
 
 public class Stack {
-	private static ArrayList<TreeNode> stack;
+	private static List<TreeNode> stack;
 	private static int TOS = 0;
 	private static Stack instance;
 
@@ -15,8 +14,7 @@ public class Stack {
 	}
 
 	public static Stack getInstance() {
-		if (instance == null)
-			instance = new Stack();
+		instance = new Stack();
 
 		return instance;
 	}
