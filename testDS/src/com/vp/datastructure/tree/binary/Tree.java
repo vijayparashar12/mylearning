@@ -191,17 +191,33 @@ public class Tree {
 		return leaf;
 	}
 
-	public int hight(TreeNode root) {
-		TreeNode currNode = root;
-		int path = 1;
-		while (currNode != null) {
-			if (currNode.getLeft() == null && currNode.getRight() == null) {
-
-			}
-		}
-		return path;
+	public int height() {
+		return height(root);
 	}
-
+	
+	private int height(TreeNode root){
+		if(root.isLeafNode()){
+			return 1;
+		}else {
+			int lth = 0;
+			int rth = 0;
+			if(root.getLeft()!=null){
+				lth=height(root.getLeft());
+			} 
+			if(root.getRight()!=null){
+				rth = height(root.getRight());
+			}
+			return 1+max(lth,rth);
+		}
+	}
+	
+	public int max(int a,int b){
+		if(a>b){
+			return a;
+		} else {
+			return b;
+		}
+	}
 	public boolean delete(int item) {
 		TreeNode currNode = root;
 		TreeNode parent = null;

@@ -27,14 +27,21 @@ public class TestBinaryTree {
 		System.out.println("size \t" + binaryTree.size());
 		System.out.println("Number of Leaf Node's\t"
 				+ binaryTree.countLeafNode());
-		System.out.println(binaryTree.delete(10));
+		System.out.println(binaryTree.height());
+		System.out.println(binaryTree.delete(3));
+		binaryTree.delete(14);
+		binaryTree.delete(10);
+		binaryTree.delete(11);
 		binaryTree.traversPreOrder();
-		System.out.println(binaryTree.getParent(11));
-		/*
-		 * Tree tree = new Tree(); int [] treedata1 = {5,3,7,10,2,4}; TreeNode
-		 * r=tree.initTree(treedata1);
-		 * System.out.println(tree.countLeafNode(r));
-		 */
+		//System.out.println(binaryTree.getParent(11));
+		System.out.println("Get Tree Hight"+binaryTree.height());
+		
+		  Tree tree = new Tree(); 
+		  int [] treedata1 = {5,7,10,3,11,2,4,1}; 
+		  tree.initTree(treedata1);
+		  System.out.println(tree.countLeafNode());
+		  System.out.println(tree.height());
+		 
 	}
 
 }
