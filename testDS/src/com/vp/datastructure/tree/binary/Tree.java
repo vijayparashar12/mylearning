@@ -3,10 +3,10 @@ import com.vp.datastructure.stack.Stack;
 
 public class Tree {
 	private TreeNode root;
-	private Stack stack;
+	private Stack<TreeNode> stack;
 	
 	public Tree(){
-		stack =Stack.getInstance();
+		stack = new Stack<TreeNode>();
 	}
 	public TreeNode initTree(int[] data) {
 		if (root != null) {
