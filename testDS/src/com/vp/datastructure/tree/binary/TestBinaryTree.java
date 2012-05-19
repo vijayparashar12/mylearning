@@ -1,7 +1,6 @@
 package com.vp.datastructure.tree.binary;
 
 public class TestBinaryTree {
-
 	/**
 	 * @param args
 	 */

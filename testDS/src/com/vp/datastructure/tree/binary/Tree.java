@@ -1,4 +1,5 @@
 package com.vp.datastructure.tree.binary;
+import com.vp.datastructure.stack.Stack;
 
 public class Tree {
 	private TreeNode root;

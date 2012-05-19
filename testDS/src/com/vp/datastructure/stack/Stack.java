@@ -1,7 +1,8 @@
-package com.vp.datastructure.tree.binary;
+package com.vp.datastructure.stack;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.vp.datastructure.tree.binary.TreeNode;
 
 public class Stack {
 	private static List<TreeNode> stack;
