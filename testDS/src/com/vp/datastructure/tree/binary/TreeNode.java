@@ -52,4 +52,14 @@ public class TreeNode {
 		return(!hasChild());
 	}
 
+	public int getChildCount(){
+		int childCount = 0;
+		if(this.left!=null){
+			childCount++;
+		}
+		if(this.right!=null){
+			childCount++;
+		}
+		return childCount;
+	}
 }

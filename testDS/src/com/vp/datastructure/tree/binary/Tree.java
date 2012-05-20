@@ -1,13 +1,15 @@
 package com.vp.datastructure.tree.binary;
+
 import com.vp.datastructure.stack.Stack;
 
 public class Tree {
 	private TreeNode root;
 	private Stack<TreeNode> stack;
-	
-	public Tree(){
+
+	public Tree() {
 		stack = new Stack<TreeNode>();
 	}
+
 	public TreeNode initTree(int[] data) {
 		if (root != null) {
 			System.out.println("tree Alredy initlized");
@@ -83,7 +85,7 @@ public class Tree {
 
 	public void traversPreOrder() {
 		TreeNode currNode = root;
-		//Stack stack = Stack.getInstance();
+		// Stack stack = Stack.getInstance();
 		System.out.println("-------------------------------------------");
 		System.out.println("-------------Pre Order Traversal-----------");
 		System.out.println("-------------------------------------------");
@@ -103,7 +105,6 @@ public class Tree {
 
 	public void traversInOrder() {
 		TreeNode currNode = root;
-		//Stack stack = Stack.getInstance();
 		pushToStack(currNode);
 		currNode = stack.pop();
 		System.out.println("-------------------------------------------");
@@ -122,9 +123,10 @@ public class Tree {
 	}
 
 	// this is a recursive solution
-	public void traversPostOrder(){
+	public void traversPostOrder() {
 		traversPostOrder(root);
 	}
+
 	private void traversPostOrder(TreeNode root) {
 		TreeNode currNode = root;
 		if (currNode != null) {
@@ -137,7 +139,6 @@ public class Tree {
 	private void pushToStack(TreeNode node) {
 		while (node != null) {
 			stack.push(node);
-			//Stack.getInstance().push(node);
 			node = node.getLeft();
 		}
 	}
@@ -174,10 +175,11 @@ public class Tree {
 		}
 		return count;
 	}
-	
-	public int countLeafNode(){
-		 return countLeafNode(root);
+
+	public int countLeafNode() {
+		return countLeafNode(root);
 	}
+
 	private int countLeafNode(TreeNode root) {
 		TreeNode currNode = root;
 		int leaf = 0;
@@ -195,30 +197,68 @@ public class Tree {
 	public int height() {
 		return height(root);
 	}
-	
-	private int height(TreeNode root){
-		if(root.isLeafNode()){
+
+	private int height(TreeNode root) {
+		if (root.isLeafNode()) {
 			return 1;
-		}else {
+		} else {
 			int lth = 0;
 			int rth = 0;
-			if(root.getLeft()!=null){
-				lth=height(root.getLeft());
-			} 
-			if(root.getRight()!=null){
+			if (root.getLeft() != null) {
+				lth = height(root.getLeft());
+			}
+			if (root.getRight() != null) {
 				rth = height(root.getRight());
 			}
-			return 1+max(lth,rth);
+			return 1 + max(lth, rth);
 		}
 	}
 	
-	public int max(int a,int b){
-		if(a>b){
+	public int getHeight(){
+		int height =0;
+		int maxHeight;
+		TreeNode currNode = root;
+		height=pushToStack(currNode, height);
+		maxHeight=height;
+		currNode=stack.pop();
+		while(currNode!=null){
+			height--;
+			if(currNode.getRight() != null){
+				height=pushToStack(currNode.getRight(),height);
+			}
+			if(height>maxHeight){
+				maxHeight = height;
+			}
+			currNode = stack.pop();
+		}
+		return maxHeight;
+	}
+	
+	private int pushToStack(TreeNode node,int height) {
+		while (node != null) {
+			stack.push(node);
+			node = node.getLeft();
+			height++;
+		}
+		return height;
+	}
+
+	public int diameter() {
+		return diameter(root);
+	}
+
+	private int diameter(TreeNode root) {
+		return 1 + height(root.getLeft()) + height(root.getRight());
+	}
+
+	private int max(int a, int b) {
+		if (a > b) {
 			return a;
 		} else {
 			return b;
 		}
 	}
+
 	public boolean delete(int item) {
 		TreeNode currNode = root;
 		TreeNode parent = null;
@@ -238,7 +278,7 @@ public class Tree {
 			return false;
 		} else {
 			if (currNode.getLeft() != null && currNode.getRight() != null) {
-				return deleteTwoChildNode( currNode);
+				return deleteTwoChildNode(currNode);
 			} else {
 				return deleteNode(currNode, parent);
 			}
@@ -318,7 +358,7 @@ public class Tree {
 		}
 		return parent;
 	}
-	
+
 	public TreeNode getParent(int item) {
 		TreeNode currNode = root;
 		TreeNode parent = null;
