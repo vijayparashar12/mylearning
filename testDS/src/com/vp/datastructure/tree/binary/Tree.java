@@ -216,16 +216,17 @@ public class Tree {
 	
 	public int getHeight(){
 		int height =0;
-		int maxHeight;
+		int maxHeight=height;;
 		TreeNode currNode = root;
-		height=pushToStack(currNode, height);
-		maxHeight=height;
+		pushToStack(currNode);
 		currNode=stack.pop();
 		while(currNode!=null){
-			height--;
-			if(currNode.getRight() != null){
-				height=pushToStack(currNode.getRight(),height);
+			if(currNode.isLeafNode()){
+				height=getPathLength(root,currNode);
+			} else if(currNode.getRight() != null){
+				pushToStack(currNode.getRight());
 			}
+			
 			if(height>maxHeight){
 				maxHeight = height;
 			}
@@ -234,15 +235,45 @@ public class Tree {
 		return maxHeight;
 	}
 	
-	private int pushToStack(TreeNode node,int height) {
-		while (node != null) {
-			stack.push(node);
-			node = node.getLeft();
-			height++;
+	public int getPathLength(TreeNode node1,TreeNode node2)
+	{	
+		TreeNode currNode = node1;
+		int length = 0;
+		int data = node2.getData();
+		while(currNode!= null){
+			int temp = currNode.getData();
+			if(data==temp){
+				++length;
+				break;
+			} else if( data > temp){
+				currNode = currNode.getRight();
+			} else {
+				currNode = currNode.getLeft();
+			}
+			length++;
 		}
-		return height;
+		return length;
 	}
-
+	
+	public int getPathLength(int from,int to){
+		return getPathLength(getNodeObject(from), getNodeObject(to));
+	}
+	
+	public TreeNode getNodeObject(int item){
+		TreeNode currNode = root;
+		while(currNode!= null){
+			int temp = currNode.getData();
+			if(item==temp){
+				break;
+			} else if( item > temp){
+				currNode = currNode.getRight();
+			} else {
+				currNode = currNode.getLeft();
+			}
+		}
+		return currNode;
+	}
+	
 	public int diameter() {
 		return diameter(root);
 	}
