@@ -5,45 +5,38 @@ package com.vp.datastructure.linklist.doubley;
  *
  */
 public class DoubleyLinkListUtil {
-	private DoubleyLinkList head; 
-	
+	private DoubleyLinkList head;
+
 	public DoubleyLinkListUtil() {
 		head = new DoubleyLinkList();
 	}
-	
-	public DoubleyLinkList getListHeader()
-	{
+
+	public DoubleyLinkList getListHeader() {
 		return head;
 	}
-	
-	public DoubleyLinkList createListNode(DoubleyLinkList start)
-	{
+
+	public DoubleyLinkList createListNode(DoubleyLinkList start) {
 		DoubleyLinkList trackForward;
 		DoubleyLinkList trackBack;
-		DoubleyLinkList temp,newNode;
-		
-		if(start==null)
-		{
-			 return getListHeader();
+		DoubleyLinkList temp, newNode;
+
+		if (start == null) {
+			return getListHeader();
 		}
-		
-		if(start.getForward()==null)
-		{
+
+		if (start.getForward() == null) {
 			newNode = new DoubleyLinkList();
 			newNode.setForward(null);
 			newNode.setBack(start);
 			start.setForward(newNode);
-		}
-		else
-		{
+		} else {
 			temp = start;
-			while(temp.getForward()!=null)
-			{
+			while (temp.getForward() != null) {
 				trackForward = temp.getForward();
 				trackBack = temp.getBack();
 				temp = trackForward;
 			}
-			
+
 			newNode = new DoubleyLinkList();
 			newNode.setForward(null);
 			newNode.setBack(temp);
@@ -51,93 +44,81 @@ public class DoubleyLinkListUtil {
 		}
 		return newNode;
 	}
-	
-	
-	public void insertNodeAfter(DoubleyLinkList start,String lookUp,String data)
-	{
+
+	public void insertNodeAfter(DoubleyLinkList start, String lookUp,
+			String data) {
 		DoubleyLinkList loc = traversForward(start, lookUp);
 		DoubleyLinkList temp;
-		
-		try
-		{
+
+		try {
 			temp = new DoubleyLinkList();
 			temp.setBack(loc);
 			temp.setForward(loc.getForward());
 			loc.getForward().setBack(temp);
 			loc.setForward(temp);
 			temp.setData(data);
-		}
-		catch (NullPointerException npe)
-		{
-			System.out.println("can't find look up value in List, inserting at last location");
+		} catch (NullPointerException npe) {
+			System.out
+					.println("can't find look up value in List, inserting at last location");
 			createListNode(start).setData(data);
 		}
 	}
+
 	/*
 	 * This method will return the reference of the lookUp node;
 	 */
-	public DoubleyLinkList traversForward(DoubleyLinkList start,String lookUp)
-	{
-		if(start==null)
+	public DoubleyLinkList traversForward(DoubleyLinkList start, String lookUp) {
+		if (start == null)
 			return start;
-		
-		DoubleyLinkList temp,loc=null,ftemp;
-		temp=start;
-		while(temp!=null)
-		{
-			if(lookUp.equals(temp.getData()))
-			{
-				loc=temp;
+
+		DoubleyLinkList temp, loc = null, ftemp;
+		temp = start;
+		while (temp != null) {
+			if (lookUp.equals(temp.getData())) {
+				loc = temp;
 				break;
 			}
-			
+
 			ftemp = temp.getForward();
-			temp=ftemp;
+			temp = ftemp;
 		}
 		return loc;
 	}
-	
-	
-	public DoubleyLinkList traversBack(DoubleyLinkList node)
-	{
+
+	public DoubleyLinkList traversBack(DoubleyLinkList node) {
 		DoubleyLinkList back = null;
-		while(node != null)
-		{
+		while (node != null) {
 			back = node.getBack();
 			node = back;
 		}
 		return back;
 	}
-	
-	public void print(DoubleyLinkList start)
-	{
-		System.out.println("##################################################");
-		do
-		{
+
+	public void print(DoubleyLinkList start) {
+		System.out
+				.println("##################################################");
+		do {
 			DoubleyLinkList list;
-			
-			System.out.println("Back Pointer ->"+start.getBack());
-			System.out.println("Node ->"+start+" Data = "+start.getData());
-			System.out.println("Forward pointe ->"+start.getForward());
-			
+
+			System.out.println("Back Pointer ->" + start.getBack());
+			System.out
+					.println("Node ->" + start + " Data = " + start.getData());
+			System.out.println("Forward pointe ->" + start.getForward());
+
 			list = start.getForward();
-			start= list;
-		}
-		while(start!=null);
+			start = list;
+		} while (start != null);
 	}
-	
-	public void removeListNode(DoubleyLinkList start,String lookUp)
-	{
+
+	public void removeListNode(DoubleyLinkList start, String lookUp) {
 		DoubleyLinkList loc = traversForward(start, lookUp);
 		DoubleyLinkList previous;
-		try
-		{
+		try {
 			previous = loc.getBack();
 			previous.setForward(loc.getForward());
-		}
-		catch(NullPointerException npe)
-		{
-			System.out.println("Unable to locate " +lookUp+ " in the list with Header "+start);
+		} catch (NullPointerException npe) {
+			System.out.println("Unable to locate " + lookUp
+					+ " in the list with Header " + start);
 		}
 	}
 }
